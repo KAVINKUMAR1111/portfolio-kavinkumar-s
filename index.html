@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavinkumar Selvarasu - AI/ML Software Engineer</title>
+    <meta name="description" content="Portfolio of Kavinkumar Selvarasu, an AI/ML Software Engineer specializing in Deep Learning, Computer Vision, and Full-Stack Development">
+    <meta name="keywords" content="AI ML Engineer, Deep Learning, Computer Vision, Python, TensorFlow, FastAPI, Software Engineer">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0a192f;
+            --secondary-blue: #112240;
+            --accent-blue: #64ffda;
+            --light-blue: #8892b0;
+            --dark-blue: #020c1b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-blue);
+            color: #e6f1ff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .square-grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            background-image: 
+                linear-gradient(rgba(100, 255, 218, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 255, 218, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+        
+        .floating-squares {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-square {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(100, 255, 218, 0.05);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            border-radius: 8px;
+            animation: floatSquare 20s linear infinite;
+        }
+        
+        @keyframes floatSquare {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(100px, 100px) rotate(90deg);
+            }
+            50% {
+                transform: translate(200px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(100px, -100px) rotate(270deg);
+            }
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #64ffda, #4dabf7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(17, 34, 64, 0.9));
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(100, 255, 218, 0.2);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: rgba(136, 146, 176, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #64ffda, #4dabf7);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            75% { transform: translateY(10px) rotate(-5deg); }
+        }
+        
+        .neon-border {
+            border: 1px solid rgba(100, 255, 218, 0.5);
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.2), inset 0 0 10px rgba(100, 255, 218, 0.1);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, #64ffda, #4dabf7);
+            bottom: -8px;
+            left: 0;
+            border-radius: 3px;
+        }
+        
+        .section-title:before {
+            content: '□';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64ffda;
+            font-size: 20px;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #64ffda;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #64ffda; }
+        }
+        
+        .square-chip {
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .square-chip:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+        
+        .cube {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 10s linear infinite;
+        }
+        
+        @keyframes rotateCube {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(100, 255, 218, 0.2);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .cube-face:nth-child(1) { transform: translateZ(20px); }
+        .cube-face:nth-child(2) { transform: rotateY(180deg) translateZ(20px); }
+        .cube-face:nth-child(3) { transform: rotateY(90deg) translateZ(20px); }
+        .cube-face:nth-child(4) { transform: rotateY(-90deg) translateZ(20px); }
+        .cube-face:nth-child(5) { transform: rotateX(90deg) translateZ(20px); }
+        .cube-face:nth-child(6) { transform: rotateX(-90deg) translateZ(20px); }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(100, 255, 218, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 255, 218, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="square-grid-bg"></div>
+    
+    <div class="floating-squares">
+        <div class="floating-square" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-square" style="top: 20%; right: 10%; animation-delay: -5s;"></div>
+        <div class="floating-square" style="bottom: 30%; left: 15%; animation-delay: -10s;"></div>
+        <div class="floating-square" style="bottom: 20%; right: 20%; animation-delay: -15s;"></div>
+        <div class="floating-square" style="top: 50%; left: 30%; animation-delay: -3s; width: 60px; height: 60px;"></div>
+        <div class="floating-square" style="top: 40%; right: 30%; animation-delay: -8s; width: 60px; height: 60px;"></div>
+    </div>
+
+    <nav class="fixed w-full z-50 gradient-bg backdrop-blur-md border-b border-blue-500/20">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="cube">
+                    <div class="cube-face"></div>
+                    <div class="cube-face"></div>
+                    <div class="cube-face"></div>
+                    <div class="cube-face"></div>
+                    <div class="cube-face"></div>
+                    <div class="cube-face"></div>
+                </div>
+                <div class="text-xl font-bold gradient-text">KS</div>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
+                    <span class="text-accent-blue">□</span>
+                    <span>Home</span>
+                </a>
+                <a href="#about" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
+                    <span class="text-accent-blue">□</span>
+                    <span>About</span>
+                </a>
+                <a href="#skills" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
+                    <span class="text-accent-blue">□</span>
+                    <span>Skills</span>
+                </a>
+                <a href="#projects" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
+                    <span class="text-accent-blue">□</span>
+                    <span>Projects</span>
+                </a>
+                <a href="#education" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
+                    <span class="text-accent-blue">□</span>
+                    <span>Education</span>
+                </a>
+                <a href="#contact" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
+                    <span class="text-accent-blue">□</span>
+                    <span>Contact</span>
+                </a>
+            </div>
+            <button class="md:hidden text-xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen flex items-center pt-16 relative">
+        <div class="absolute inset-0 grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 py-12 relative z-10">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-3 h-3 bg-accent-blue"></div>
+                        <p class="text-accent-blue font-medium">Hello, I'm</p>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold">Kavinkumar <span class="gradient-text">Selvarasu</span></h1>
+                    <div class="typewriter text-2xl md:text-3xl font-medium h-10">
+                        AI/ML Software Engineer
+                    </div>
+                    <p class="text-light-blue text-lg">
+                        Specializing in Deep Learning, Computer Vision, and Full-Stack Development. 
+                        Transforming complex problems into intelligent solutions.
+                    </p>
+                    <div class="flex space-x-4 pt-4">
+                        <a href="#projects" class="px-6 py-3 bg-accent-blue text-primary-blue font-semibold rounded-lg hover:shadow-lg hover:shadow-accent-blue/30 transition-all transform hover:scale-105 flex items-center space-x-2">
+                            <span>View Projects</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border border-accent-blue text-accent-blue font-semibold rounded-lg hover:bg-accent-blue/10 transition-all transform hover:scale-105 flex items-center space-x-2">
+                            <span>Contact</span>
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 neon-border floating">
+                        <div class="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-2 p-4">
+                            <div class="bg-accent-blue/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-accent-blue/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-accent-blue/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-accent-blue/20"></div>
+                            <div class="bg-accent-blue/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-accent-blue/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-accent-blue/20"></div>
+                            <div class="bg-blue-500/20"></div>
+                            <div class="bg-accent-blue/20"></div>
+                        </div>
+                        <div class="absolute inset-8 bg-primary-blue flex items-center justify-center">
+                            <i class="fas fa-brain text-6xl gradient-text"></i>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-500/10 border border-blue-500/20"></div>
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-accent-blue/10 border border-accent-blue/20"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-8 relative">
+        <div class="absolute inset-0 grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl font-bold mb-8 section-title">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <div class="gradient-bg rounded-2xl p-8 card-hover">
+                        <div class="flex items-center mb-4">
+                            <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                            <h3 class="text-2xl font-bold gradient-text">AI/ML Engineer</h3>
+                        </div>
+                        <p class="text-light-blue mb-6">
+                            I'm a passionate Software Engineer specializing in Artificial Intelligence and Machine Learning. 
+                            With expertise in Deep Learning, Computer Vision, and Full-Stack development, I create intelligent 
+                            systems that solve real-world problems.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-4 square-chip">
+                                <div class="w-12 h-12 rounded-lg bg-secondary-blue flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt gradient-text"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Location</p>
+                                    <p class="text-light-blue">Coimbatore, Tamil Nadu, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 flex items-center">
+                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                        Core Expertise
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="gradient-bg rounded-xl p-6 card-hover">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-robot text-accent-blue"></i>
+                                </div>
+                                <h4 class="text-xl font-semibold">Deep Learning</h4>
+                            </div>
+                            <p class="text-light-blue">CNN, Transfer Learning, Ensemble Learning for Computer Vision applications</p>
+                        </div>
+                        <div class="gradient-bg rounded-xl p-6 card-hover">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-code text-accent-blue"></i>
+                                </div>
+                                <h4 class="text-xl font-semibold">Full-Stack Development</h4>
+                            </div>
+                            <p class="text-light-blue">FastAPI, React, MongoDB for scalable AI application backends</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-12 bg-secondary-blue/50 relative">
+        <div class="absolute inset-0 grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl font-bold mb-8 section-title">Technical Skills</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-6">
+                    <div class="gradient-bg rounded-2xl p-8 card-hover">
+                        <div class="flex items-center mb-6">
+                            <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                            <h3 class="text-2xl font-bold gradient-text">Programming Languages</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium flex items-center">
+                                        <div class="w-2 h-2 bg-accent-blue mr-2"></div>
+                                        Python
+                                    </span>
+                                    <span class="text-accent-blue">95%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium flex items-center">
+                                        <div class="w-2 h-2 bg-accent-blue mr-2"></div>
+                                        Java
+                                    </span>
+                                    <span class="text-accent-blue">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium flex items-center">
+                                        <div class="w-2 h-2 bg-accent-blue mr-2"></div>
+                                        JavaScript
+                                    </span>
+                                    <span class="text-accent-blue">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="gradient-bg rounded-2xl p-8 card-hover">
+                        <div class="flex items-center mb-6">
+                            <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                            <h3 class="text-2xl font-bold gradient-text">Technologies & Tools</h3>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
+                                <i class="fab fa-python text-green-400"></i>
+                                <span>FastAPI</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
+                                <i class="fas fa-brain text-orange-400"></i>
+                                <span>TensorFlow</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
+                                <i class="fab fa-react text-blue-400"></i>
+                                <span>React</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
+                                <i class="fas fa-database text-green-500"></i>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
+                                <i class="fas fa-palette text-pink-400"></i>
+                                <span>Figma</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
+                                <i class="fas fa-tools text-blue-300"></i>
+                                <span>Uizard</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-12 relative">
+        <div class="absolute inset-0 grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl font-bold mb-8 section-title">Projects & Research</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gradient-bg rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 neon-border">
+                        <i class="fas fa-leaf text-accent-blue text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Rice Leaf Disease Detection</h3>
+                    <p class="text-light-blue mb-6">
+                        Deep Learning system using CNN for automated identification and classification of rice plant diseases.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 square-chip text-sm">CNN</span>
+                        <span class="px-3 py-1 square-chip text-sm">TensorFlow</span>
+                        <span class="px-3 py-1 square-chip text-sm">FastAPI</span>
+                        <span class="px-3 py-1 square-chip text-sm">Computer Vision</span>
+                    </div>
+                </div>
+
+                <div class="gradient-bg rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 neon-border">
+                        <i class="fas fa-drone text-accent-blue text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Multispectral Crop Health Detection</h3>
+                    <p class="text-light-blue mb-6">
+                        Transfer Learning with U-Net for identifying unhealthy plant groups using drone multispectral imaging.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 square-chip text-sm">U-Net</span>
+                        <span class="px-3 py-1 square-chip text-sm">Transfer Learning</span>
+                        <span class="px-3 py-1 square-chip text-sm">Drone Imaging</span>
+                    </div>
+                </div>
+
+                <div class="gradient-bg rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 neon-border">
+                        <i class="fas fa-brain text-accent-blue text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Epilepsy Diagnosis System</h3>
+                    <p class="text-light-blue mb-6">
+                        Real-time epileptic seizure detection using EEG signals with WKLD feature extraction and ensemble learning.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 square-chip text-sm">GRU/LSTM/RNN</span>
+                        <span class="px-3 py-1 square-chip text-sm">Ensemble Learning</span>
+                        <span class="px-3 py-1 square-chip text-sm">PyQt5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-12 bg-secondary-blue/50 relative">
+        <div class="absolute inset-0 grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl font-bold mb-8 section-title">Education & Achievements</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="gradient-bg rounded-2xl p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                        <h3 class="text-2xl font-bold gradient-text">Education</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-xl font-semibold">Sri Ramakrishna Engineering College</h4>
+                                <span class="text-accent-blue">2021-2025</span>
+                            </div>
+                            <p class="text-light-blue mb-2">B.E - Computer Science and Engineering</p>
+                            <p class="text-light-blue">CGPA: 7.59 | Coimbatore, India</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-xl font-semibold">Bharathi Higher Secondary School</h4>
+                                <span class="text-accent-blue">2020-2021</span>
+                            </div>
+                            <p class="text-light-blue mb-2">Higher Secondary Certificate (HSC)</p>
+                            <p class="text-light-blue">Percentage: 90.7% | Namakkal, India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gradient-bg rounded-2xl p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                        <h3 class="text-2xl font-bold gradient-text">Achievements</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-trophy text-yellow-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">Smart India Hackathon 2023</h4>
+                                <p class="text-light-blue">Selected for National Level Competition</p>
+                                <a href="#" class="text-accent-blue hover:underline text-sm flex items-center mt-2">
+                                    <span>View Certificate</span>
+                                    <i class="fas fa-external-link-alt ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex items-start p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-file-alt text-green-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">Research Publication</h4>
+                                <p class="text-light-blue">Presented paper at ICECA 2023 on Disease Classification in Paddy Crops</p>
+                                <a href="#" class="text-accent-blue hover:underline text-sm flex items-center mt-2">
+                                    <span>View Publication</span>
+                                    <i class="fas fa-external-link-alt ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mb-6 mt-6">
+                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                        <h3 class="text-2xl font-bold gradient-text">Certifications</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-4 rounded-lg square-chip">
+                            <span>Artificial Intelligence Primer – Infosys Springboard</span>
+                            <a href="#" class="text-accent-blue hover:underline">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="flex items-center justify-between p-4 rounded-lg square-chip">
+                            <span>Java Full Stack – Wipro TalentNext</span>
+                            <a href="#" class="text-accent-blue hover:underline">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-12 relative">
+        <div class="absolute inset-0 grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl font-bold mb-8 section-title">Get In Touch</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="gradient-bg rounded-2xl p-8 card-hover">
+                    <div class="grid md:grid-cols-1 gap-6">
+                        <div>
+                            <div class="flex items-center mb-6">
+                                <div class="w-4 h-4 bg-accent-blue mr-3"></div>
+                                <h3 class="text-2xl font-bold gradient-text">Contact Information</h3>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="flex items-center space-x-4 p-4 rounded-lg square-chip">
+                                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                        <i class="fas fa-envelope text-accent-blue"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Email</p>
+                                        <p class="text-light-blue">kavinkumar@example.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 rounded-lg square-chip">
+                                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                        <i class="fas fa-map-marker-alt text-accent-blue"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Location</p>
+                                        <p class="text-light-blue">Coimbatore, Tamil Nadu, India</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <h4 class="text-xl font-bold mb-4 flex items-center">
+                                    <div class="w-3 h-3 bg-accent-blue mr-2"></div>
+                                    Connect with me
+                                </h4>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center hover:bg-accent-blue hover:text-primary-blue transition-all square-chip">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                    <a href="#" class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center hover:bg-accent-blue hover:text-primary-blue transition-all square-chip">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center hover:bg-accent-blue hover:text-primary-blue transition-all square-chip">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-6 border-t border-blue-500/20 relative">
+        <div class="absolute inset-0 grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <p class="text-light-blue">© 2024 Kavinkumar Selvarasu. All Rights Reserved.</p>
+            <p class="text-light-blue mt-2">AI/ML Software Engineer | Deep Learning Specialist</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        document.querySelector('button.md\\:hidden').addEventListener('click', function() {
+            const navLinks = document.querySelector('.hidden.md\\:flex');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('w-full');
+            navLinks.classList.toggle('gradient-bg');
+            navLinks.classList.toggle('p-6');
+            navLinks.classList.toggle('space-y-4');
+        });
+
+        function createFloatingSquares() {
+            const container = document.querySelector('.floating-squares');
+            for (let i = 0; i < 15; i++) {
+                const square = document.createElement('div');
+                square.className = 'floating-square';
+                square.style.width = `${20 + Math.random() * 40}px`;
+                square.style.height = square.style.width;
+                square.style.left = `${Math.random() * 100}%`;
+                square.style.top = `${Math.random() * 100}%`;
+                square.style.opacity = 0.1 + Math.random() * 0.2;
+                square.style.animationDelay = `-${Math.random() * 20}s`;
+                square.style.animationDuration = `${30 + Math.random() * 30}s`;
+                container.appendChild(square);
+            }
+        }
+
+        createFloatingSquares();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0';
+                        setTimeout(() => {
+                            bar.style.transition = 'width 1.5s ease-out';
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('#skills .gradient-bg').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
