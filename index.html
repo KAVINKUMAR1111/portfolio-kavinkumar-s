@@ -1,826 +1,891 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kavinkumar Selvarasu - AI/ML Software Engineer</title>
-    <meta name="description" content="Portfolio of Kavinkumar Selvarasu, an AI/ML Software Engineer specializing in Deep Learning, Computer Vision, and Full-Stack Development">
-    <meta name="keywords" content="AI ML Engineer, Deep Learning, Computer Vision, Python, TensorFlow, FastAPI, Software Engineer">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-blue: #0a192f;
-            --secondary-blue: #112240;
-            --accent-blue: #64ffda;
-            --light-blue: #8892b0;
-            --dark-blue: #020c1b;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--primary-blue);
-            color: #e6f1ff;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        .square-grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.15;
-            background-image: 
-                linear-gradient(rgba(100, 255, 218, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100, 255, 218, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-position: center center;
-            animation: gridMove 20s linear infinite;
-        }
-        
-        @keyframes gridMove {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 50px 50px;
-            }
-        }
-        
-        .floating-squares {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .floating-square {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: rgba(100, 255, 218, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            border-radius: 8px;
-            animation: floatSquare 20s linear infinite;
-        }
-        
-        @keyframes floatSquare {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            25% {
-                transform: translate(100px, 100px) rotate(90deg);
-            }
-            50% {
-                transform: translate(200px, 0) rotate(180deg);
-            }
-            75% {
-                transform: translate(100px, -100px) rotate(270deg);
-            }
-        }
-        
-        h1, h2, h3, h4, h5 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(90deg, #64ffda, #4dabf7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(17, 34, 64, 0.9));
-            backdrop-filter: blur(10px);
-        }
-        
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(100, 255, 218, 0.2);
-            border-color: rgba(100, 255, 218, 0.3);
-        }
-        
-        .card-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.1), transparent);
-            transition: left 0.7s ease;
-        }
-        
-        .card-hover:hover::before {
-            left: 100%;
-        }
-        
-        .skill-bar {
-            height: 8px;
-            background: rgba(136, 146, 176, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #64ffda, #4dabf7);
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .skill-progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(5deg); }
-            75% { transform: translateY(10px) rotate(-5deg); }
-        }
-        
-        .neon-border {
-            border: 1px solid rgba(100, 255, 218, 0.5);
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.2), inset 0 0 10px rgba(100, 255, 218, 0.1);
-        }
-        
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 3px;
-            background: linear-gradient(90deg, #64ffda, #4dabf7);
-            bottom: -8px;
-            left: 0;
-            border-radius: 3px;
-        }
-        
-        .section-title:before {
-            content: '□';
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #64ffda;
-            font-size: 20px;
-        }
-        
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid #64ffda;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: 0.15em;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #64ffda; }
-        }
-        
-        .square-chip {
-            background: rgba(100, 255, 218, 0.1);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-        
-        .square-chip:hover {
-            background: rgba(100, 255, 218, 0.2);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
-        }
-        
-        .cube {
-            width: 40px;
-            height: 40px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateCube 10s linear infinite;
-        }
-        
-        @keyframes rotateCube {
-            0% { transform: rotateX(0) rotateY(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
-        }
-        
-        .cube-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(100, 255, 218, 0.2);
-            border: 1px solid rgba(100, 255, 218, 0.3);
-        }
-        
-        .cube-face:nth-child(1) { transform: translateZ(20px); }
-        .cube-face:nth-child(2) { transform: rotateY(180deg) translateZ(20px); }
-        .cube-face:nth-child(3) { transform: rotateY(90deg) translateZ(20px); }
-        .cube-face:nth-child(4) { transform: rotateY(-90deg) translateZ(20px); }
-        .cube-face:nth-child(5) { transform: rotateX(90deg) translateZ(20px); }
-        .cube-face:nth-child(6) { transform: rotateX(-90deg) translateZ(20px); }
-        
-        .grid-pattern {
-            background-image: 
-                linear-gradient(rgba(100, 255, 218, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100, 255, 218, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kavinkumar Selvarasu — .NET & Azure Developer</title>
+  <meta name="description" content="Portfolio of Kavinkumar Selvarasu — .NET Developer, Azure AD B2C Identity Engineer, and Backend Specialist at Accenture." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:       #04070f;
+      --surface:  #0b1120;
+      --surface2: #111c30;
+      --border:   #1a2d4a;
+      --accent:   #3b82f6;      /* electric blue */
+      --accent2:  #06b6d4;      /* cyan */
+      --hot:      #6366f1;      /* indigo */
+      --text:     #e2eaf8;
+      --muted:    #64748b;
+      --dim:      #334155;
+      --green:    #10b981;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ─────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── AURORA BACKGROUND ─────────────────────────────── */
+    .aurora {
+      position: fixed; inset: 0; z-index: 0;
+      overflow: hidden; pointer-events: none;
+    }
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.08;
+      animation: drift 20s ease-in-out infinite alternate;
+    }
+    .aurora-blob:nth-child(1) { width:700px;height:700px;top:-200px;left:-200px;background:var(--accent);animation-delay:0s; }
+    .aurora-blob:nth-child(2) { width:500px;height:500px;bottom:-100px;right:-100px;background:var(--hot);animation-delay:-7s; }
+    .aurora-blob:nth-child(3) { width:400px;height:400px;top:50%;left:50%;background:var(--accent2);animation-delay:-14s; }
+    @keyframes drift {
+      0%   { transform: translate(0,0) scale(1); }
+      100% { transform: translate(80px,60px) scale(1.15); }
+    }
+
+    /* ── NAV ───────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 4rem;
+      background: rgba(4,7,15,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1.2rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.3rem; cursor: pointer; }
+    .nav-mobile { display: none; }
+
+    /* ── HERO ──────────────────────────────────────────── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .hero-inner { max-width: 760px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.8rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 28px; height: 1px;
+      background: var(--accent);
+    }
+    h1.hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .hero-role {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.8rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-bottom: 2.8rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      background: var(--surface);
+      letter-spacing: 0.05em;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      background: var(--accent);
+      color: #fff; font-weight: 600; font-size: 0.9rem;
+      border-radius: 8px; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(59,130,246,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.35); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid var(--border);
+      color: var(--text); font-weight: 500; font-size: 0.9rem;
+      border-radius: 8px; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); background: rgba(59,130,246,0.06); }
+
+    /* ── SECTIONS ──────────────────────────────────────── */
+    section { position: relative; z-index: 1; }
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 6rem 4rem; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* ── EXPERIENCE ────────────────────────────────────── */
+    #experience { border-top: 1px solid var(--border); }
+    .exp-card {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      padding: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color 0.25s;
+    }
+    .exp-card:hover { border-color: var(--accent); }
+    .exp-left { }
+    .exp-company {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .exp-period {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .exp-title {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .exp-right h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .exp-bullets li {
+      display: flex; gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '▹';
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .exp-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .exp-tech span {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.65rem;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 4px;
+      color: var(--accent2);
+    }
+
+    /* ── SKILLS ────────────────────────────────────────── */
+    #skills { border-top: 1px solid var(--border); background: var(--surface); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-group {
+      padding: 1.8rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .skill-group:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .skill-group-icon {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(59,130,246,0.1);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+    .skill-group h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--surface);
+    }
+    .pill.hot { border-color: rgba(99,102,241,0.3); color: #a5b4fc; background: rgba(99,102,241,0.08); }
+    .pill.cool { border-color: rgba(6,182,212,0.3); color: var(--accent2); background: rgba(6,182,212,0.08); }
+
+    /* ── PROJECTS ──────────────────────────────────────── */
+    #projects { border-top: 1px solid var(--border); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      position: relative;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-card:hover { border-color: rgba(59,130,246,0.4); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .project-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--dim);
+      margin-bottom: 1rem;
+    }
+    .project-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .project-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .project-stack span {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.2);
+      border-radius: 3px;
+      color: var(--accent2);
+    }
+    .project-links { display: flex; gap: 1rem; }
+    .project-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); }
+
+    /* ── EDUCATION + CERTS ─────────────────────────────── */
+    #education { border-top: 1px solid var(--border); background: var(--surface); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .edu-card {
+      padding: 2rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .edu-card h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .edu-card .edu-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .edu-card .edu-meta {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      color: var(--accent);
+    }
+    .cert-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0; }
+    .cert-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+    .cert-item i { color: var(--accent); margin-top: 0.1rem; flex-shrink: 0; }
+
+    /* ── ACHIEVEMENTS ──────────────────────────────────── */
+    .ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2rem; }
+    .ach-card {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s;
+    }
+    .ach-card:hover { border-color: var(--accent); }
+    .ach-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(59,130,246,0.1);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+    .ach-card h4 { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .ach-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── CONTACT ───────────────────────────────────────── */
+    #contact { border-top: 1px solid var(--border); }
+    .contact-inner {
+      max-width: 680px;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .contact-inner .section-title { margin-bottom: 1rem; }
+    .contact-sub { font-size: 1rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.7; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-item:hover { border-color: var(--accent); background: rgba(59,130,246,0.05); }
+    .contact-item i { color: var(--accent); font-size: 1rem; width: 20px; text-align: center; }
+    .contact-item span { font-size: 0.85rem; color: var(--text); }
+    .socials { display: flex; justify-content: center; gap: 1rem; }
+    .social-btn {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(59,130,246,0.08); }
+
+    /* ── FOOTER ────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--dim);
+      position: relative; z-index: 1;
+    }
+
+    /* ── SCROLL REVEAL ─────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── SCROLLBAR ─────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: block; }
+      .nav-mobile.open {
+        display: flex; flex-direction: column; gap: 1.2rem;
+        position: fixed; top: 58px; left: 0; right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 1.5rem;
+        z-index: 99;
+      }
+      .nav-mobile.open a { color: var(--text); text-decoration: none; font-size: 0.95rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      .section-wrap { padding: 4rem 1.5rem; }
+      .exp-card { grid-template-columns: 1fr; gap: 1.5rem; }
+      .edu-grid, .ach-grid, .contact-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      h1.hero-name { font-size: 2.6rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="square-grid-bg"></div>
-    
-    <div class="floating-squares">
-        <div class="floating-square" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
-        <div class="floating-square" style="top: 20%; right: 10%; animation-delay: -5s;"></div>
-        <div class="floating-square" style="bottom: 30%; left: 15%; animation-delay: -10s;"></div>
-        <div class="floating-square" style="bottom: 20%; right: 20%; animation-delay: -15s;"></div>
-        <div class="floating-square" style="top: 50%; left: 30%; animation-delay: -3s; width: 60px; height: 60px;"></div>
-        <div class="floating-square" style="top: 40%; right: 30%; animation-delay: -8s; width: 60px; height: 60px;"></div>
+
+<!-- AURORA -->
+<div class="aurora">
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KS<span>.dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:kavin11112003@gmail.com" class="nav-cta">Hire me</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#education" onclick="closeMobile()">Education</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner reveal">
+    <div class="hero-eyebrow">Available for .NET roles</div>
+    <h1 class="hero-name">Kavinkumar<br>Selvarasu</h1>
+    <div class="hero-role">.NET Developer &amp; Azure Identity Engineer</div>
+    <p class="hero-desc">
+      I build secure, cloud-native .NET applications at Accenture — specializing in
+      Azure AD B2C custom policies, ASP.NET Core APIs, and enterprise authentication
+      flows using OAuth 2.0 and OpenID Connect.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">ASP.NET Core</span>
+      <span class="tag">Azure AD B2C</span>
+      <span class="tag">IEF / Custom Policies</span>
+      <span class="tag">OAuth 2.0</span>
+      <span class="tag">OpenID Connect</span>
+      <span class="tag">C#</span>
+      <span class="tag">Azure DevOps</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary"><i class="fas fa-layer-group"></i> View Projects</a>
+      <a href="#contact" class="btn-ghost"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-label reveal">Where I've Worked</div>
+    <h2 class="section-title reveal">Experience</h2>
+    <div class="exp-card reveal">
+      <div class="exp-left">
+        <div class="exp-company">Accenture</div>
+        <div class="exp-period">Feb 2026 — Present</div>
+        <div class="exp-title">Packaged App Development Associate<br>.NET &amp; Azure Cloud</div>
+      </div>
+      <div class="exp-right">
+        <h4>What I do day-to-day</h4>
+        <ul class="exp-bullets">
+          <li>Design and develop Azure AD B2C custom policies using Identity Experience Framework (IEF) XML — implementing sign-up, sign-in, MFA, social IdPs, and password reset journeys for enterprise clients.</li>
+          <li>Build and maintain ASP.NET Core Web APIs integrated with Azure AD B2C for authentication and authorization, applying OAuth 2.0 and OpenID Connect end-to-end.</li>
+          <li>Configure B2C tenant settings, app registrations, API permissions, and claims transformations; integrate MSAL into .NET apps for secure token lifecycle management.</li>
+          <li>Deploy .NET applications on Azure App Service with secrets managed via Azure Key Vault; contribute to CI/CD pipelines on Azure DevOps.</li>
+        </ul>
+        <div class="exp-tech">
+          <span>ASP.NET Core</span><span>C#</span><span>Azure AD B2C</span>
+          <span>IEF / XML</span><span>OAuth 2.0</span><span>OIDC</span>
+          <span>MSAL</span><span>Azure Key Vault</span><span>Azure DevOps</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-label reveal">What I Work With</div>
+    <h2 class="section-title reveal">Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-icon"><i class="fas fa-layer-group"></i></div>
+        <h3>.NET &amp; Backend</h3>
+        <div class="skill-pills">
+          <span class="pill hot">ASP.NET Core</span>
+          <span class="pill hot">C#</span>
+          <span class="pill hot">.NET 8/9/10</span>
+          <span class="pill hot">Entity Framework Core</span>
+          <span class="pill">REST Web APIs</span>
+          <span class="pill">Web APIs</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-icon"><i class="fas fa-cloud"></i></div>
+        <h3>Azure &amp; Identity</h3>
+        <div class="skill-pills">
+          <span class="pill cool">Azure AD B2C</span>
+          <span class="pill cool">IEF Custom Policies</span>
+          <span class="pill cool">Azure App Service</span>
+          <span class="pill cool">Azure Key Vault</span>
+          <span class="pill cool">Azure DevOps</span>
+          <span class="pill">OAuth 2.0</span>
+          <span class="pill">OpenID Connect</span>
+          <span class="pill">JWT</span>
+          <span class="pill">MSAL</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-icon"><i class="fas fa-code"></i></div>
+        <h3>Languages &amp; DB</h3>
+        <div class="skill-pills">
+          <span class="pill">C#</span>
+          <span class="pill">Python</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">Java</span>
+          <span class="pill">SQL Server</span>
+          <span class="pill">MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-icon"><i class="fas fa-tools"></i></div>
+        <h3>Tools &amp; Platforms</h3>
+        <div class="skill-pills">
+          <span class="pill">Visual Studio</span>
+          <span class="pill">Git</span>
+          <span class="pill">Postman</span>
+          <span class="pill">Figma</span>
+          <span class="pill">Azure DevOps</span>
+          <span class="pill">Agile / Scrum</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-icon"><i class="fas fa-brain"></i></div>
+        <h3>Deep Learning (Academic)</h3>
+        <div class="skill-pills">
+          <span class="pill">TensorFlow</span>
+          <span class="pill">CNN</span>
+          <span class="pill">U-Net / Transfer Learning</span>
+          <span class="pill">GRU / LSTM / RNN</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">PyQt5</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-icon"><i class="fas fa-sitemap"></i></div>
+        <h3>Architecture &amp; Practices</h3>
+        <div class="skill-pills">
+          <span class="pill">Clean Architecture</span>
+          <span class="pill">CI/CD</span>
+          <span class="pill">REST</span>
+          <span class="pill">Microservices</span>
+          <span class="pill">TDD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-label reveal">Things I've Built</div>
+    <h2 class="section-title reveal">Projects &amp; Research</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-num">01 — Research</div>
+        <h3>Epilepsy Diagnosis &amp; EEG Signal Processing</h3>
+        <p>
+          Real-time epileptic seizure detection and brain zone localization using EEG signals with
+          WKLD feature extraction. Ensemble of GRU, LSTM, and RNN models deployed with a
+          FastAPI REST backend and PyQt5 desktop GUI for live clinical monitoring.
+        </p>
+        <div class="project-stack">
+          <span>FastAPI</span><span>GRU / LSTM / RNN</span><span>Ensemble Learning</span><span>PyQt5</span><span>Python</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">02 — Computer Vision</div>
+        <h3>Rice Leaf Disease Detection</h3>
+        <p>
+          Deep learning system using CNN for automated identification and classification of diseases
+          in rice plants. Backend microservice built with FastAPI + Uvicorn as the ASGI gateway,
+          with TensorFlow powering the classification engine.
+        </p>
+        <div class="project-stack">
+          <span>CNN</span><span>TensorFlow</span><span>FastAPI</span><span>Uvicorn</span><span>Python</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#" class="project-link"><i class="fas fa-file-alt"></i> Paper</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">03 — Remote Sensing</div>
+        <h3>Multispectral Crop Health Detection</h3>
+        <p>
+          Extended the disease detection work to large-scale field analysis using drone multispectral
+          imagery and U-Net transfer learning. Identifies and classifies unhealthy crop zones,
+          enabling early intervention and precision agriculture.
+        </p>
+        <div class="project-stack">
+          <span>U-Net</span><span>Transfer Learning</span><span>Drone Imaging</span><span>Computer Vision</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="section-label reveal">Background</div>
+    <h2 class="section-title reveal">Education &amp; Credentials</h2>
+
+    <div class="edu-grid">
+      <div>
+        <h3 style="font-size:1rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;" class="reveal">Academic</h3>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="edu-card reveal">
+            <h3>Sri Ramakrishna Engineering College</h3>
+            <div class="edu-sub">B.E. — Computer Science &amp; Engineering</div>
+            <div class="edu-meta">2021 – 2025 &nbsp;·&nbsp; CGPA 7.59 &nbsp;·&nbsp; Coimbatore</div>
+          </div>
+          <div class="edu-card reveal">
+            <h3>Bharathi Higher Secondary School</h3>
+            <div class="edu-sub">Higher Secondary Certificate (HSC)</div>
+            <div class="edu-meta">2020 – 2021 &nbsp;·&nbsp; 90.7% &nbsp;·&nbsp; Namakkal</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;" class="reveal">Certifications</h3>
+        <div class="cert-list">
+          <div class="cert-item reveal"><i class="fas fa-certificate"></i> Java Full Stack — Wipro TalentNext</div>
+          <div class="cert-item reveal"><i class="fas fa-certificate"></i> Artificial Intelligence Primer — Accenture</div>
+          <div class="cert-item reveal"><i class="fas fa-certificate"></i> App Dev — Programming with Python — Accenture Learn Vantage</div>
+          <div class="cert-item reveal"><i class="fas fa-certificate"></i> App Dev — Database with MongoDB — Accenture Learn Vantage</div>
+        </div>
+      </div>
     </div>
 
-    <nav class="fixed w-full z-50 gradient-bg backdrop-blur-md border-b border-blue-500/20">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="cube">
-                    <div class="cube-face"></div>
-                    <div class="cube-face"></div>
-                    <div class="cube-face"></div>
-                    <div class="cube-face"></div>
-                    <div class="cube-face"></div>
-                    <div class="cube-face"></div>
-                </div>
-                <div class="text-xl font-bold gradient-text">KS</div>
-            </div>
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
-                    <span class="text-accent-blue">□</span>
-                    <span>Home</span>
-                </a>
-                <a href="#about" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
-                    <span class="text-accent-blue">□</span>
-                    <span>About</span>
-                </a>
-                <a href="#skills" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
-                    <span class="text-accent-blue">□</span>
-                    <span>Skills</span>
-                </a>
-                <a href="#projects" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
-                    <span class="text-accent-blue">□</span>
-                    <span>Projects</span>
-                </a>
-                <a href="#education" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
-                    <span class="text-accent-blue">□</span>
-                    <span>Education</span>
-                </a>
-                <a href="#contact" class="hover:text-accent-blue transition-colors flex items-center space-x-2">
-                    <span class="text-accent-blue">□</span>
-                    <span>Contact</span>
-                </a>
-            </div>
-            <button class="md:hidden text-xl">
-                <i class="fas fa-bars"></i>
-            </button>
+    <div class="ach-grid" style="margin-top:3rem;">
+      <div class="ach-card reveal">
+        <div class="ach-icon"><i class="fas fa-trophy"></i></div>
+        <div>
+          <h4>Smart India Hackathon 2023</h4>
+          <p>Selected for National Level Competition — one of India's largest government-backed hackathons.</p>
         </div>
-    </nav>
-
-    <section id="home" class="min-h-screen flex items-center pt-16 relative">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="container mx-auto px-6 py-12 relative z-10">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-3 h-3 bg-accent-blue"></div>
-                        <p class="text-accent-blue font-medium">Hello, I'm</p>
-                    </div>
-                    <h1 class="text-5xl md:text-7xl font-bold">Kavinkumar <span class="gradient-text">Selvarasu</span></h1>
-                    <div class="typewriter text-2xl md:text-3xl font-medium h-10">
-                        AI/ML Software Engineer
-                    </div>
-                    <p class="text-light-blue text-lg">
-                        Specializing in Deep Learning, Computer Vision, and Full-Stack Development. 
-                        Transforming complex problems into intelligent solutions.
-                    </p>
-                    <div class="flex space-x-4 pt-4">
-                        <a href="#projects" class="px-6 py-3 bg-accent-blue text-primary-blue font-semibold rounded-lg hover:shadow-lg hover:shadow-accent-blue/30 transition-all transform hover:scale-105 flex items-center space-x-2">
-                            <span>View Projects</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="#contact" class="px-6 py-3 border border-accent-blue text-accent-blue font-semibold rounded-lg hover:bg-accent-blue/10 transition-all transform hover:scale-105 flex items-center space-x-2">
-                            <span>Contact</span>
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="relative flex justify-center">
-                    <div class="relative w-64 h-64 md:w-80 md:h-80 neon-border floating">
-                        <div class="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-2 p-4">
-                            <div class="bg-accent-blue/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-accent-blue/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-accent-blue/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-accent-blue/20"></div>
-                            <div class="bg-accent-blue/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-accent-blue/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-accent-blue/20"></div>
-                            <div class="bg-blue-500/20"></div>
-                            <div class="bg-accent-blue/20"></div>
-                        </div>
-                        <div class="absolute inset-8 bg-primary-blue flex items-center justify-center">
-                            <i class="fas fa-brain text-6xl gradient-text"></i>
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-500/10 border border-blue-500/20"></div>
-                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-accent-blue/10 border border-accent-blue/20"></div>
-                </div>
-            </div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon"><i class="fas fa-file-alt"></i></div>
+        <div>
+          <h4>Research Publication — ICECA 2023</h4>
+          <p>Presented "Disease Classification in Paddy Crop Leaves using Deep Learning" at RVS Technical Campus, Nov 2023.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="about" class="py-8 relative">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-4xl font-bold mb-8 section-title">About Me</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <div class="gradient-bg rounded-2xl p-8 card-hover">
-                        <div class="flex items-center mb-4">
-                            <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                            <h3 class="text-2xl font-bold gradient-text">AI/ML Engineer</h3>
-                        </div>
-                        <p class="text-light-blue mb-6">
-                            I'm a passionate Software Engineer specializing in Artificial Intelligence and Machine Learning. 
-                            With expertise in Deep Learning, Computer Vision, and Full-Stack development, I create intelligent 
-                            systems that solve real-world problems.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-center p-4 square-chip">
-                                <div class="w-12 h-12 rounded-lg bg-secondary-blue flex items-center justify-center mr-4">
-                                    <i class="fas fa-map-marker-alt gradient-text"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">Location</p>
-                                    <p class="text-light-blue">Coimbatore, Tamil Nadu, India</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold mb-4 flex items-center">
-                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                        Core Expertise
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="gradient-bg rounded-xl p-6 card-hover">
-                            <div class="flex items-center mb-3">
-                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4">
-                                    <i class="fas fa-robot text-accent-blue"></i>
-                                </div>
-                                <h4 class="text-xl font-semibold">Deep Learning</h4>
-                            </div>
-                            <p class="text-light-blue">CNN, Transfer Learning, Ensemble Learning for Computer Vision applications</p>
-                        </div>
-                        <div class="gradient-bg rounded-xl p-6 card-hover">
-                            <div class="flex items-center mb-3">
-                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4">
-                                    <i class="fas fa-code text-accent-blue"></i>
-                                </div>
-                                <h4 class="text-xl font-semibold">Full-Stack Development</h4>
-                            </div>
-                            <p class="text-light-blue">FastAPI, React, MongoDB for scalable AI application backends</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner">
+      <div class="section-label reveal" style="text-align:center;">Say Hello</div>
+      <h2 class="section-title reveal" style="text-align:center;">Let's Work Together</h2>
+      <p class="contact-sub reveal">
+        I'm actively looking for .NET developer and Azure identity engineering roles.
+        Whether you have a position in mind or just want to chat — my inbox is open.
+      </p>
+      <div class="contact-grid reveal">
+        <a href="mailto:kavin11112003@gmail.com" class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>kavin11112003@gmail.com</span>
+        </a>
+        <a href="tel:+919342383939" class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+91 93423 83939</span>
+        </a>
+        <a href="https://linkedin.com/in/kavinkumar-selvarasu" target="_blank" class="contact-item">
+          <i class="fab fa-linkedin-in"></i>
+          <span>LinkedIn Profile</span>
+        </a>
+        <a href="https://github.com/kavinkumar" target="_blank" class="contact-item">
+          <i class="fab fa-github"></i>
+          <span>GitHub Profile</span>
+        </a>
+      </div>
+      <div class="socials reveal">
+        <a href="mailto:kavin11112003@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://linkedin.com/in/kavinkumar-selvarasu" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/kavinkumar" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="skills" class="py-12 bg-secondary-blue/50 relative">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-4xl font-bold mb-8 section-title">Technical Skills</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="space-y-6">
-                    <div class="gradient-bg rounded-2xl p-8 card-hover">
-                        <div class="flex items-center mb-6">
-                            <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                            <h3 class="text-2xl font-bold gradient-text">Programming Languages</h3>
-                        </div>
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium flex items-center">
-                                        <div class="w-2 h-2 bg-accent-blue mr-2"></div>
-                                        Python
-                                    </span>
-                                    <span class="text-accent-blue">95%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium flex items-center">
-                                        <div class="w-2 h-2 bg-accent-blue mr-2"></div>
-                                        Java
-                                    </span>
-                                    <span class="text-accent-blue">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium flex items-center">
-                                        <div class="w-2 h-2 bg-accent-blue mr-2"></div>
-                                        JavaScript
-                                    </span>
-                                    <span class="text-accent-blue">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="space-y-6">
-                    <div class="gradient-bg rounded-2xl p-8 card-hover">
-                        <div class="flex items-center mb-6">
-                            <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                            <h3 class="text-2xl font-bold gradient-text">Technologies & Tools</h3>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
-                                <i class="fab fa-python text-green-400"></i>
-                                <span>FastAPI</span>
-                            </div>
-                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
-                                <i class="fas fa-brain text-orange-400"></i>
-                                <span>TensorFlow</span>
-                            </div>
-                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
-                                <i class="fab fa-react text-blue-400"></i>
-                                <span>React</span>
-                            </div>
-                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
-                                <i class="fas fa-database text-green-500"></i>
-                                <span>MongoDB</span>
-                            </div>
-                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
-                                <i class="fas fa-palette text-pink-400"></i>
-                                <span>Figma</span>
-                            </div>
-                            <div class="flex items-center space-x-3 p-4 rounded-lg square-chip">
-                                <i class="fas fa-tools text-blue-300"></i>
-                                <span>Uizard</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Kavinkumar Selvarasu</span>
+  <span>.NET Developer · Azure Cloud · Coimbatore, India</span>
+</footer>
 
-    <section id="projects" class="py-12 relative">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-4xl font-bold mb-8 section-title">Projects & Research</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="gradient-bg rounded-2xl p-8 card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 neon-border">
-                        <i class="fas fa-leaf text-accent-blue text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Rice Leaf Disease Detection</h3>
-                    <p class="text-light-blue mb-6">
-                        Deep Learning system using CNN for automated identification and classification of rice plant diseases.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 square-chip text-sm">CNN</span>
-                        <span class="px-3 py-1 square-chip text-sm">TensorFlow</span>
-                        <span class="px-3 py-1 square-chip text-sm">FastAPI</span>
-                        <span class="px-3 py-1 square-chip text-sm">Computer Vision</span>
-                    </div>
-                </div>
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('nav-mobile');
+  hamburger.addEventListener('click', () => navMobile.classList.toggle('open'));
+  function closeMobile() { navMobile.classList.remove('open'); }
 
-                <div class="gradient-bg rounded-2xl p-8 card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 neon-border">
-                        <i class="fas fa-drone text-accent-blue text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Multispectral Crop Health Detection</h3>
-                    <p class="text-light-blue mb-6">
-                        Transfer Learning with U-Net for identifying unhealthy plant groups using drone multispectral imaging.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 square-chip text-sm">U-Net</span>
-                        <span class="px-3 py-1 square-chip text-sm">Transfer Learning</span>
-                        <span class="px-3 py-1 square-chip text-sm">Drone Imaging</span>
-                    </div>
-                </div>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
 
-                <div class="gradient-bg rounded-2xl p-8 card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 neon-border">
-                        <i class="fas fa-brain text-accent-blue text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Epilepsy Diagnosis System</h3>
-                    <p class="text-light-blue mb-6">
-                        Real-time epileptic seizure detection using EEG signals with WKLD feature extraction and ensemble learning.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 square-chip text-sm">GRU/LSTM/RNN</span>
-                        <span class="px-3 py-1 square-chip text-sm">Ensemble Learning</span>
-                        <span class="px-3 py-1 square-chip text-sm">PyQt5</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => revealObs.observe(el));
 
-    <section id="education" class="py-12 bg-secondary-blue/50 relative">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-4xl font-bold mb-8 section-title">Education & Achievements</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="gradient-bg rounded-2xl p-8 card-hover">
-                    <div class="flex items-center mb-6">
-                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                        <h3 class="text-2xl font-bold gradient-text">Education</h3>
-                    </div>
-                    <div class="space-y-6">
-                        <div class="p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
-                            <div class="flex justify-between items-center mb-2">
-                                <h4 class="text-xl font-semibold">Sri Ramakrishna Engineering College</h4>
-                                <span class="text-accent-blue">2021-2025</span>
-                            </div>
-                            <p class="text-light-blue mb-2">B.E - Computer Science and Engineering</p>
-                            <p class="text-light-blue">CGPA: 7.59 | Coimbatore, India</p>
-                        </div>
-                        <div class="p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
-                            <div class="flex justify-between items-center mb-2">
-                                <h4 class="text-xl font-semibold">Bharathi Higher Secondary School</h4>
-                                <span class="text-accent-blue">2020-2021</span>
-                            </div>
-                            <p class="text-light-blue mb-2">Higher Secondary Certificate (HSC)</p>
-                            <p class="text-light-blue">Percentage: 90.7% | Namakkal, India</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gradient-bg rounded-2xl p-8 card-hover">
-                    <div class="flex items-center mb-6">
-                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                        <h3 class="text-2xl font-bold gradient-text">Achievements</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-start p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
-                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4 mt-1">
-                                <i class="fas fa-trophy text-yellow-400"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold">Smart India Hackathon 2023</h4>
-                                <p class="text-light-blue">Selected for National Level Competition</p>
-                                <a href="#" class="text-accent-blue hover:underline text-sm flex items-center mt-2">
-                                    <span>View Certificate</span>
-                                    <i class="fas fa-external-link-alt ml-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="flex items-start p-4 rounded-lg bg-primary-blue/30 border border-blue-500/20">
-                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-4 mt-1">
-                                <i class="fas fa-file-alt text-green-400"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold">Research Publication</h4>
-                                <p class="text-light-blue">Presented paper at ICECA 2023 on Disease Classification in Paddy Crops</p>
-                                <a href="#" class="text-accent-blue hover:underline text-sm flex items-center mt-2">
-                                    <span>View Publication</span>
-                                    <i class="fas fa-external-link-alt ml-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center mb-6 mt-6">
-                        <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                        <h3 class="text-2xl font-bold gradient-text">Certifications</h3>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-4 rounded-lg square-chip">
-                            <span>Artificial Intelligence Primer – Infosys Springboard</span>
-                            <a href="#" class="text-accent-blue hover:underline">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                        <div class="flex items-center justify-between p-4 rounded-lg square-chip">
-                            <span>Java Full Stack – Wipro TalentNext</span>
-                            <a href="#" class="text-accent-blue hover:underline">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-12 relative">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-4xl font-bold mb-8 section-title">Get In Touch</h2>
-            <div class="max-w-4xl mx-auto">
-                <div class="gradient-bg rounded-2xl p-8 card-hover">
-                    <div class="grid md:grid-cols-1 gap-6">
-                        <div>
-                            <div class="flex items-center mb-6">
-                                <div class="w-4 h-4 bg-accent-blue mr-3"></div>
-                                <h3 class="text-2xl font-bold gradient-text">Contact Information</h3>
-                            </div>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="flex items-center space-x-4 p-4 rounded-lg square-chip">
-                                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                                        <i class="fas fa-envelope text-accent-blue"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold">Email</p>
-                                        <p class="text-light-blue">kavinkumar@example.com</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-4 p-4 rounded-lg square-chip">
-                                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                                        <i class="fas fa-map-marker-alt text-accent-blue"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold">Location</p>
-                                        <p class="text-light-blue">Coimbatore, Tamil Nadu, India</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-8">
-                                <h4 class="text-xl font-bold mb-4 flex items-center">
-                                    <div class="w-3 h-3 bg-accent-blue mr-2"></div>
-                                    Connect with me
-                                </h4>
-                                <div class="flex space-x-4">
-                                    <a href="#" class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center hover:bg-accent-blue hover:text-primary-blue transition-all square-chip">
-                                        <i class="fab fa-linkedin-in"></i>
-                                    </a>
-                                    <a href="#" class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center hover:bg-accent-blue hover:text-primary-blue transition-all square-chip">
-                                        <i class="fab fa-github"></i>
-                                    </a>
-                                    <a href="#" class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center hover:bg-accent-blue hover:text-primary-blue transition-all square-chip">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-6 border-t border-blue-500/20 relative">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <p class="text-light-blue">© 2024 Kavinkumar Selvarasu. All Rights Reserved.</p>
-            <p class="text-light-blue mt-2">AI/ML Software Engineer | Deep Learning Specialist</p>
-        </div>
-    </footer>
-
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        document.querySelector('button.md\\:hidden').addEventListener('click', function() {
-            const navLinks = document.querySelector('.hidden.md\\:flex');
-            navLinks.classList.toggle('hidden');
-            navLinks.classList.toggle('flex');
-            navLinks.classList.toggle('flex-col');
-            navLinks.classList.toggle('absolute');
-            navLinks.classList.toggle('top-16');
-            navLinks.classList.toggle('left-0');
-            navLinks.classList.toggle('w-full');
-            navLinks.classList.toggle('gradient-bg');
-            navLinks.classList.toggle('p-6');
-            navLinks.classList.toggle('space-y-4');
-        });
-
-        function createFloatingSquares() {
-            const container = document.querySelector('.floating-squares');
-            for (let i = 0; i < 15; i++) {
-                const square = document.createElement('div');
-                square.className = 'floating-square';
-                square.style.width = `${20 + Math.random() * 40}px`;
-                square.style.height = square.style.width;
-                square.style.left = `${Math.random() * 100}%`;
-                square.style.top = `${Math.random() * 100}%`;
-                square.style.opacity = 0.1 + Math.random() * 0.2;
-                square.style.animationDelay = `-${Math.random() * 20}s`;
-                square.style.animationDuration = `${30 + Math.random() * 30}s`;
-                container.appendChild(square);
-            }
-        }
-
-        createFloatingSquares();
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    const skillBars = entry.target.querySelectorAll('.skill-progress');
-                    skillBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            bar.style.transition = 'width 1.5s ease-out';
-                            bar.style.width = width;
-                        }, 100);
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('#skills .gradient-bg').forEach(section => {
-            observer.observe(section);
-        });
-    </script>
+  // Respect reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.aurora-blob').forEach(b => b.style.animation = 'none');
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+</script>
 </body>
 </html>
